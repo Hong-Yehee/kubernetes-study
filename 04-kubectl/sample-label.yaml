@@ -1,0 +1,15 @@
+# sample-label.yaml
+# 레이블 설정 예제
+# 레이블은 리소스를 구분하기 위한 정보 같은 것
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sample-label
+  labels:
+    label1: val1
+    label2: val2
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx:1.16

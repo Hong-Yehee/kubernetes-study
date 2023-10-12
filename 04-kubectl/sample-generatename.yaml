@@ -1,0 +1,11 @@
+# sample-generatename.yaml
+# 임의의 이름을 가진 리소스 예제
+
+apiVersion: v1
+kind: Pod
+metadata:
+  generateName: sample-generatename-
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx:1.16

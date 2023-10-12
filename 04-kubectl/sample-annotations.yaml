@@ -1,0 +1,15 @@
+# sample-annotations.yaml
+# 어노테이션 설정 예제
+# 어노테이션은 리소스에 대한 메모 같은 것
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sample-annotation
+  annotations:
+    annotation1: val1
+    annotation2: val2
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx:1.16

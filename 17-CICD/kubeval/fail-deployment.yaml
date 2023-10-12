@@ -1,0 +1,22 @@
+# 큐비발(Kubeval):
+# "Validate your Kubernetes configuration files"
+# 매니페스트 파일의 YAML 구조가 특정 API 버전을 준수하는지 검증할 수 있는 OSS
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fail-deployment
+  annotations:
+    max-replicas: 100
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      role: fail-app
+  template:
+    metadata:
+      labels:
+        role: fail-app
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:1.16

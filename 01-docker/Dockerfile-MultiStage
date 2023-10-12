@@ -1,0 +1,13 @@
+# Dockerfile-MultiStage
+# 여러 container image를 사용하여 처리하고, 결과물만 실행용 container image에 복사 
+
+# Stage 1 container: golang의 docker image를 사용하여 Go 언어로 작성된 application compile
+FROM golang:1.14.1-alpine3.11 as builder
+COPY ./main.go ./
+RUN go build -o /go-app ./main.go
+
+# Stage 2 container: compile한 binary를 포함한 실행용 container 생성
+FROM alpine:3.11
+# Stage 1에서 compile한 결과물을 복사
+COPY --from=builder /go-app .
+ENTRYPOINT ["./go-app"]

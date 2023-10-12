@@ -1,0 +1,17 @@
+# kind 클러스터 설정 예제
+# master 3대와 worker 3대로 구성
+apiVersion: kind.x-k8s.io/v1alpha4
+kind: Cluster
+nodes:
+- role: control-plane
+  image: kindest/node:v1.18.15
+- role: control-plane
+  image: kindest/node:v1.18.15
+- role: control-plane
+  image: kindest/node:v1.18.15
+- role: worker
+  image: kindest/node:v1.18.15
+- role: worker
+  image: kindest/node:v1.18.15
+- role: worker
+  image: kindest/node:v1.18.15

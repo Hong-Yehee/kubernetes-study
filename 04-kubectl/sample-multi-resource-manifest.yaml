@@ -1,0 +1,37 @@
+# sample-multi-resource-manifest.yaml
+# 여러 리소스가 정의된 매니페스트 예제
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order1-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample-app
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:1.16
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order2-service
+spec:
+  type: LoadBalancer
+  ports:
+    - name: "http-port"
+      protocol: "TCP"
+      port: 8080
+      targetPort: 80
+  selector:
+    app: sample-app

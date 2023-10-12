@@ -1,0 +1,50 @@
+# 알파 기능을 활성화한 kind 클러스터 설정 예제
+apiVersion: kind.x-k8s.io/v1alpha4
+kind: Cluster
+kubeadmConfigPatches:
+- |
+  apiVersion: kubeadm.k8s.io/v1beta2
+  kind: ClusterConfiguration
+  metadata:
+    name: config
+  apiServer:
+    extraArgs:
+      "feature-gates": "EphemeralContainers=true,HPAScaleToZero=true,TTLAfterFinished=true,ServiceTopology=true,ImmutableEphemeralVolumes=true"
+  scheduler:
+    extraArgs:
+      "feature-gates": "EphemeralContainers=true,HPAScaleToZero=true,TTLAfterFinished=true,ServiceTopology=true,NonPreemptingPriority=true"
+  controllerManager:
+    extraArgs:
+      "feature-gates": "HPAScaleToZero=true,TTLAfterFinished=true,ImmutableEphemeralVolumes=true"
+- |
+  apiVersion: kubelet.config.k8s.io/v1beta1
+  kind: KubeletConfiguration
+  featureGates:
+    EphemeralContainers: true
+    HPAScaleToZero: true
+    TTLAfterFinished: true
+    ServiceTopology: true
+- |
+  apiVersion: kubeproxy.config.k8s.io/v1alpha1
+  kind: KubeProxyConfiguration
+  featureGates:
+    EphemeralContainers: true
+    HPAScaleToZero: true
+    TTLAfterFinished: true
+    ServiceTopology: true
+    EndpointSliceProxying: true
+nodes:
+- role: control-plane
+  image: amsy810/kind-node:v1.18.2
+- role: control-plane
+  image: amsy810/kind-node:v1.18.2
+- role: control-plane
+  image: amsy810/kind-node:v1.18.2
+- role: worker
+  image: amsy810/kind-node:v1.18.2
+- role: worker
+  image: amsy810/kind-node:v1.18.2
+- role: worker
+  image: amsy810/kind-node:v1.18.2
+- role: worker
+  image: amsy810/kind-node:v1.18.2
